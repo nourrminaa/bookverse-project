@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - My Bookstore</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- tells the browser to establish an early connection with this link for speed loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- left side: login form -->
+      <div class="login-section">
+        <div class="login-container">
+          <div class="logo-login">BookVerse</div>
+
+          <h2>Welcome Back</h2>
+          <p class="subtitle">Enter your credentials to access your account</p>
+
+          <form>
+            <div class="form-container">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
+
+            <!-- the input type="password" is the one making the output hidden -->
+            <div class="form-container">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                class="password"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+
+            <div class="forgot-password">
+              <p><a href="" class="forgot-link">Forgot Password?</a></p>
+            </div>
+
+            <button type="submit" class="btn-1 btn-login">Sign In</button>
+          </form>
+
+          <p class="signup-text">
+            Don't have an account?
+            <a href="" class="signup-link">Create one</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- right side: visuals -->
+      <div class="visual-section">
+        <div class="decorative-lines">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+
+        <div class="quote-marks top-left">"</div>
+        <div class="quote-marks bottom-right">"</div>
+
+        <div class="visual-content">
+          <h1 class="visual-title">Every Book Tells a Story</h1>
+          <p class="visual-subtitle">
+            Discover your next great read in our curated collection of timeless
+            classics and contemporary masterpieces.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
