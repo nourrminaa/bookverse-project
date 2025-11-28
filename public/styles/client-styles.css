@@ -717,6 +717,11 @@ a:hover {
 
 .accordion-button {
   padding: 15px 20px;
+  background-color: var(--white);
+}
+
+.accordion-body {
+  background-color: var(--white);
 }
 
 .support_container hr {
@@ -896,6 +901,11 @@ a:hover {
   padding: 4%;
   padding-left: 5%;
   padding-right: 16%;
+}
+
+.contact-container input,
+.contact-container textarea {
+  background-color: var(--white);
 }
 
 .icons .flex {
