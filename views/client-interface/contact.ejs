@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BookVerse – Contact</title>
+
+    <link rel="icon" type="image/x-icon" href="/assets/logo/logo_favicon.png" />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="BookVerse - Contact our team for support, inquiries, or assistance."
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles/client-styles.css" />
+  </head>
+
+  <body>
+    <%- include('includes/header') %>
+
+    <main>
+      <div class="container contact">
+        <div class="contact-container flex">
+          <section class="form container">
+            <div class="container">
+              <h2 class="pt-5 pb-3">Drop us a message!</h2>
+
+              <form>
+                <div class="flex1">
+                  <div class="name">
+                    <label for="name">Your Name:</label><br />
+                    <input type="text" id="name" name="name" required />
+                  </div>
+
+                  <div>
+                    <label for="email">Your Email:</label><br />
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                    /><br /><br />
+                  </div>
+                </div>
+
+                <label for="message">Your Message:</label><br />
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="2"
+                  required
+                  class="w-100"
+                ></textarea>
+
+                <button type="submit" class="button-1 w-100 mt-5">
+                  Send Your Message!
+                </button>
+              </form>
+            </div>
+          </section>
+          <section class="socials">
+            <div class="container p-5">
+              <h3>Connect with Us on Social Media:</h3>
+              <br />
+              <p>Follow us for updates, offers, and more.</p>
+
+              <div class="icons">
+                <div class="flex-row gap-3">
+                  <a href="#"
+                    ><img
+                      src="/assets/svg/instagram.svg"
+                      class="w-100"
+                      alt="Instagram"
+                  /></a>
+                  <a href="#"
+                    ><img
+                      src="/assets/svg/facebook.svg"
+                      class="w-100"
+                      alt="Facebook"
+                  /></a>
+                  <a href="#"
+                    ><img
+                      src="/assets/svg/linkedin.svg"
+                      class="w-100"
+                      alt="LinkedIn"
+                  /></a>
+                  <a href="#"
+                    ><img
+                      src="/assets/svg/pinterest.svg"
+                      class="w-100"
+                      alt="Pinterest"
+                  /></a>
+                </div>
+              </div>
+
+              <br />
+              <h3 class="mt-4">Need Help? We're Here for You!</h3>
+              <br />
+
+              <p>
+                Check our
+                <a href="/support" class="text-decoration-underline">FAQ</a>
+                for quick answers to common questions.
+              </p>
+
+              <p>Or reach us directly at <strong>+96108888888</strong>.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <%- include('includes/footer') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

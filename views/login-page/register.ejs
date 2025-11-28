@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register – BookVerse</title>
+
+    <link rel="stylesheet" href="/styles/login.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="visual-section">
+        <div class="decorative-lines">
+          <div class="line line-1"></div>
+          <div class="line line-2"></div>
+          <div class="line line-3"></div>
+        </div>
+
+        <div class="quote-marks top-left">"</div>
+        <div class="quote-marks bottom-right">"</div>
+
+        <div class="visual-content">
+          <h1 class="visual-title">Begin Your Story</h1>
+          <p class="visual-subtitle">
+            Join BookVerse and unlock a world of unforgettable books, authors,
+            and imagination.
+          </p>
+        </div>
+      </div>
+
+      <div class="login-section register-section">
+        <div class="login-container">
+          <div class="logo-login logo-register">
+            <a href="/">BookVerse</a>
+          </div>
+
+          <h2>Create Account</h2>
+          <p class="subtitle">Join us and start your reading journey</p>
+
+          <form action="/auth/register" method="POST">
+            <div class="form-container">
+              <label for="name">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your full name"
+                required
+              />
+            </div>
+
+            <div class="form-container">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
+
+            <div class="form-container">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="password"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+
+            <div class="form-container">
+              <label for="confirm">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm"
+                name="confirm"
+                class="password"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn-1 btn-login">Register</button>
+          </form>
+
+          <p class="signup-text">
+            Already have an account?
+            <a href="/login" class="signup-link">Sign In</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

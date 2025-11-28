@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <form class="search-box me-4 d-none d-md-block">
+      <input type="text" placeholder=" " />
+      <button type="reset"></button>
+    </form>
+    <i
+      class="bi bi-list d-lg-none shop-filter-icon"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#shopFilters"
+      aria-label="Toggle filters"
+    ></i>
+
+    <div class="collapse navbar-collapse" id="shopFilters">
+      <ul class="navbar-nav gap-3">
+        <!-- Categories -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
+            Categories
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item">Fiction</a></li>
+            <li><a class="dropdown-item">Non-Fiction</a></li>
+            <li><a class="dropdown-item">Children’s Books</a></li>
+          </ul>
+        </li>
+
+        <!-- Authors -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
+            Authors
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item">Albert Camus</a></li>
+            <li><a class="dropdown-item">Alex Michaelides</a></li>
+            <li><a class="dropdown-item">Fyodor Dostoevsky</a></li>
+          </ul>
+        </li>
+
+        <!-- Price Range -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
+            Price Range
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item">$0 - $5</a></li>
+            <li><a class="dropdown-item">$5 - $10</a></li>
+            <li><a class="dropdown-item">$10+</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,261 @@
+/* main content section */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-info:hover {
+  cursor: pointer;
+}
+
+.user-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* make it circular */
+  background-color: var(--darkBlue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-weight: 600;
+  font-size: clamp(0.875rem, 0.75rem + 0.625vw, 1rem);
+}
+
+.user-name {
+  font-weight: 500;
+  color: var(--black);
+}
+
+/* statistics section */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px; /* space between each card */
+  margin-bottom: 80px;
+}
+
+.stat-card {
+  background-color: inherit;
+  border: 1px solid var(--gray);
+  padding: 28px;
+  position: relative; /* for the pseudo-element */
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  box-shadow: 0 8px 24px rgba(20, 20, 20, 0.1);
+  cursor: pointer;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--lightBlue);
+}
+
+.stat-card.brick::before {
+  background-color: var(--brick);
+}
+.stat-card.green::before {
+  background-color: var(--lightGreen);
+}
+.stat-card.pink::before {
+  background-color: var(--lightPink);
+}
+.stat-card.blue::before {
+  background-color: var(--darkBlue);
+}
+
+.stat-title {
+  font-size: clamp(0.63rem, 0.75rem + 0.625vw, 0.8rem);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--darkGray);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: clamp(1rem, 1rem + 5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--black);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 8px;
+}
+
+.stat-change {
+  font-size: clamp(0.875rem, 0.75rem + 0.625vw, 1rem);
+  color: var(--lightGreen);
+}
+
+.stat-change.negative {
+  color: var(--brick);
+}
+
+/* quick actions section */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 50px;
+}
+
+/* chart section */
+.chart-container {
+  background-color: inherit;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column; /* stacks header and chart vertically */
+  width: 100%;
+  max-width: 602px;
+  height: 228px;
+  margin-bottom: 20px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.chart-filters {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  padding-top: 0;
+  right: 0; /* align to right */
+  margin-left: auto;
+}
+
+.filter-btn {
+  font-size: clamp(0.1rem, 0.75rem + 0.625vw, 0.3rem);
+  padding: 2px 9px;
+  letter-spacing: 0.5px;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background-color: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+  cursor: pointer;
+}
+
+#bar-chart {
+  cursor: pointer;
+}
+
+/* recent orders section */
+
+.activity-list {
+  background-color: var(--white);
+  border: 1px solid var(--gray);
+  padding: 0;
+}
+
+.activity-item {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--gray);
+  display: flex; /* flex to align info and time horizontally on big screens */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activity-item:last-child {
+  border-bottom: none; /* remove border for last item because it already has one from the activity list */
+}
+
+.activity-item:hover {
+  background-color: rgba(
+    142,
+    176,
+    181,
+    0.05
+  ); /* light/transparent blue on hover */
+  cursor: pointer;
+}
+
+.activity-info {
+  flex: 1;
+}
+
+.activity-title {
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 4px;
+}
+
+.activity-details {
+  font-size: clamp(0.5rem, 0.75rem + 0.625vw, 0.8rem);
+  color: var(--darkGray);
+}
+
+.activity-time {
+  font-size: clamp(0.5rem, 0.75rem + 0.625vw, 0.8rem);
+  color: var(--darkGray);
+}
+
+/* responsiveness */
+@media (max-width: 900px) {
+  .chart-container {
+    height: 300px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .user-profile {
+    height: 30px;
+    width: 30px;
+    background-color: inherit;
+    color: var(--darkBlue);
+    border: 1px solid var(--darkBlue);
+  }
+
+  .activity-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+  }
+
+  .chart-header .filter-btn {
+    font-size: clamp(0.3rem, 0.75rem + 0.625vw, 0.6rem);
+    padding: 5px 11px;
+  }
+
+  .chart-filters {
+    flex-wrap: wrap; /* wrap buttons to next line on small screens */
+  }
+
+  .stats-grid {
+    gap: 14px;
+  }
+
+  .quick-actions a {
+    width: 100%;
+  }
+
+  .chart-container {
+    height: 240px;
+  }
+}

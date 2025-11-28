@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BookVerse</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo/logo_favicon.png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="BookVerse - Lebanon's top modern bookstore offering a wide range of books, Braille books, seasonal gifts, and B2B services. Discover the perfect book for any occasion!"
+    />
+    <meta
+      name="keywords"
+      content="BookVerse, Lebanese bookstore, books in Lebanon, Braille books, modern bookstore, B2B book services, seasonal book gifts, Beirut bookstore"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --white: rgb(253, 251, 247);
+        --black: rgb(18, 18, 18);
+        --gray: rgb(235, 233, 229);
+        --darkGray: rgb(120, 116, 110);
+        --brick: rgb(162, 89, 67);
+        --lightGreen: rgb(195, 204, 186);
+        --lightBlue: rgb(198, 210, 215);
+        --darkBlue: rgb(52, 64, 73);
+        --lightPink: rgb(232, 217, 208);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: var(--white);
+        color: var(--black);
+        line-height: 1.6;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* Typography */
+      h1 {
+        font-size: clamp(2rem, 1rem + 5vw, 3rem);
+        font-weight: 700;
+        line-height: clamp(1.2, 1.6vw, 2);
+      }
+      h2 {
+        font-size: clamp(1.5rem, 0.875rem + 3.125vw, 2.25rem);
+        font-weight: 600;
+      }
+      h3 {
+        font-size: clamp(1.25rem, 0.875rem + 1.875vw, 1.5rem);
+        font-weight: 500;
+      }
+      h6 {
+        font-size: clamp(12px, 1.5vw, 20px);
+        font-weight: 300;
+        line-height: clamp(30px, 4vw, 40px);
+      }
+      p {
+        font-size: clamp(0.875rem, 0.75rem + 0.625vw, 1rem);
+        font-weight: 300;
+      }
+
+      ul,
+      li {
+        list-style: none;
+      }
+
+      /* Buttons */
+      .btn-1,
+      .button-1 {
+        padding: 10px 30px;
+        text-transform: uppercase;
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold;
+        border: solid 1px transparent;
+        letter-spacing: 1px;
+        background-color: var(--black);
+        color: var(--white);
+        cursor: pointer;
+        font-size: 15px;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .btn-1:hover,
+      .button-1:hover {
+        background-color: inherit;
+        color: var(--black);
+        border-color: var(--black);
+      }
+
+      .btn-2,
+      .button-2 {
+        padding: 10px 30px;
+        text-transform: uppercase;
+        font-family: "Montserrat", sans-serif;
+        font-weight: bold;
+        border: solid 1px var(--black);
+        letter-spacing: 1px;
+        background-color: inherit;
+        color: var(--black);
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      .btn-2:hover,
+      .button-2:hover {
+        color: var(--darkGray);
+        background-color: inherit;
+        border-color: var(--darkGray);
+      }
+
+      /* Header */
+      .announcement_container {
+        background-color: var(--black);
+        color: var(--white);
+        padding: 10px 0;
+        font-size: 12px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: var(--white);
+      }
+
+      .navbar_container {
+        background-color: var(--white);
+        color: var(--black);
+        padding-left: 7%;
+        padding-right: 7%;
+      }
+
+      header li a {
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+
+      .logo {
+        margin-left: 10vw;
+      }
+
+      .container_left ul {
+        gap: 34px;
+      }
+
+      header li a {
+        color: var(--black);
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+        display: inline-block;
+        padding-bottom: 1px;
+      }
+
+      header li a::after {
+        content: "";
+        height: 1px;
+        background: var(--lightBlue);
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        transition: width 0.3s ease;
+      }
+
+      header li a:hover {
+        color: var(--lightBlue);
+      }
+
+      header li a:hover::after {
+        width: 100%;
+      }
+
+      header li a.btn-1,
+      header li a.button-1 {
+        background-color: var(--black);
+        color: var(--white);
+        padding: 10px 30px;
+        font-weight: bold;
+        border: 1px solid transparent;
+      }
+
+      header li a.btn-1::after,
+      header li a.button-1::after {
+        display: none;
+      }
+
+      header li a.btn-1:hover,
+      header li a.button-1:hover {
+        background-color: transparent;
+        color: var(--black);
+        border: 1px solid var(--black);
+      }
+
+      #offcanvasDarkNavbar .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      #offcanvasDarkNavbar .navbar-nav li {
+        width: auto;
+      }
+
+      #offcanvasDarkNavbar .navbar-nav li a {
+        display: inline-block;
+        width: auto;
+        padding-bottom: 2px;
+      }
+
+      #offcanvasDarkNavbar .navbar-nav li a::after {
+        bottom: -2px;
+      }
+
+      #offcanvasDarkNavbar .navbar-nav li a.button-1 {
+        display: inline-block;
+        width: auto;
+        text-align: left;
+        padding: 10px 30px;
+      }
+
+      #offcanvasDarkNavbar .navbar-nav li a.button-1::after {
+        display: none;
+      }
+
+      /* Hero Carousel */
+      .carousel-inner {
+        background-color: var(--white);
+      }
+
+      .carousel-item img {
+        max-height: 500px;
+        object-fit: contain;
+      }
+
+      .carrousel1 .carousel-item .d-flex {
+        background-color: var(--white);
+      }
+
+      /* Our Story */
+      .our-story-container {
+        background-color: var(--white);
+        padding: clamp(4rem, 8%, 6rem) 0;
+      }
+
+      .our-story-container .container {
+        gap: 8%;
+        align-items: center;
+      }
+
+      .our-story-container .flex {
+        display: flex;
+        gap: 5rem;
+        align-items: center;
+      }
+
+      .our-story-container img {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        transition: transform 0.4s ease;
+      }
+
+      .our-story-container a {
+        display: inline-block;
+        margin-top: 1.5rem;
+        font-weight: 600;
+        color: var(--black);
+        text-decoration: none;
+        position: relative;
+        padding-bottom: 2px;
+      }
+
+      .our-story-container a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--black);
+        transform: scaleX(1);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      .our-story-container a:hover::after {
+        transform: scaleX(0);
+        transform-origin: right;
+      }
+
+      .flex {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* Items Not to Miss */
+      .items-not-to-miss-container {
+        background-color: var(--white);
+        padding: clamp(2rem, 8%, 5rem) 0;
+      }
+
+      .items-not-to-miss-container h1 {
+        padding-bottom: 7%;
+      }
+
+      .items-not-to-miss-container .carousel-inner {
+        padding-left: 19%;
+        padding-right: 10%;
+      }
+
+      .carousel-item-img {
+        flex: 1;
+        max-width: 30%;
+        height: auto;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .carousel-item-img img {
+        height: clamp(200px, 20vw, 350px);
+        width: auto;
+        object-fit: contain;
+      }
+
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        filter: invert(1);
+      }
+
+      /* Client Photos - Redesigned */
+      .client-photos {
+        background-color: var(--white);
+        padding: 5rem 0;
+      }
+
+      .client-photos h1 {
+        margin-bottom: 1rem;
+      }
+
+      .client-photos .subtitle {
+        color: var(--darkGray);
+        font-size: 1.1rem;
+        margin-bottom: 3rem;
+        font-weight: 400;
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .photo-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        background: var(--white);
+      }
+
+      .photo-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .photo-card img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .photo-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        padding: 1.5rem;
+        color: white;
+        transform: translateY(60px);
+        transition: transform 0.3s ease;
+      }
+
+      .photo-card:hover .photo-overlay {
+        transform: translateY(0);
+      }
+
+      .location-tag {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      .customer-note {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        opacity: 0.95;
+      }
+
+      /* Newsletter */
+      .newsletter {
+        background-color: var(--white);
+        padding: clamp(2rem, 5%, 5rem) 0 clamp(2rem, 8%, 5rem);
+      }
+
+      .newsletter input {
+        border: 2px solid var(--black);
+        float: left;
+        margin: 0;
+        padding: 0;
+        border-top: 0px;
+        border-left: 0px;
+        border-right: 0px;
+        border-radius: 0%;
+        background-color: inherit;
+      }
+
+      .newsletter input:focus {
+        outline: none;
+        border-bottom-color: var(--lightBlue);
+      }
+
+      #newsletter-form button {
+        width: 25%;
+      }
+
+      /* Footer - Redesigned */
+      footer {
+        background-color: var(--white);
+        border-top: 1px solid var(--gray);
+        padding: 4rem 0 2rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-brand h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .footer-brand p {
+        color: var(--darkGray);
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .footer-social a {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--black);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+      }
+
+      .footer-social a:hover {
+        background-color: var(--lightBlue);
+        color: var(--black);
+      }
+
+      .footer-column h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .footer-column ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-column ul li a {
+        color: var(--darkGray);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--black);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid var(--gray);
+        padding-top: 2rem;
+        text-align: center;
+        color: var(--darkGray);
+        font-size: 0.9rem;
+      }
+
+      /* Media Queries */
+      @media (max-width: 991px) {
+        .navbar-toggler {
+          display: block !important;
+        }
+        #offcanvasDarkNavbar {
+          display: block !important;
+        }
+        .navbar-expand-lg {
+          display: none !important;
+        }
+        .logo {
+          width: 24px;
+          height: auto;
+        }
+        .flex {
+          flex-direction: column;
+          gap: 20px;
+        }
+      }
+
+      @media (min-width: 992px) {
+        .navbar-expand-lg {
+          display: flex !important;
+        }
+        .navbar-toggler,
+        #offcanvasDarkNavbar {
+          display: none !important;
+        }
+        .navbar-nav {
+          gap: 1px !important;
+        }
+        .container-fluid {
+          padding: 0;
+          margin: 0;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .carrousel1 .carousel-item .d-flex {
+          flex-direction: column-reverse;
+          text-align: center;
+        }
+        .carrousel1 .carousel-item img {
+          max-width: 90%;
+          margin: 0 auto;
+          margin-left: 10%;
+        }
+        .our-story-flex {
+          flex-direction: column-reverse;
+          align-items: center;
+        }
+        .our-story-container img {
+          width: 80%;
+          justify-content: center;
+          align-items: center;
+          margin-left: 9%;
+        }
+        .items-not-to-miss-container .carousel-inner {
+          padding-left: 12%;
+        }
+        .footer-content {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+      }
+
+      @media (max-width: 425px) {
+        .items-not-to-miss-container h1 {
+          padding-bottom: 0px;
+        }
+        .footer-content {
+          flex-direction: column-reverse;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="announcement_container">
+        <div class="container">
+          <div class="text-center">
+            Free delivery on orders over $35 in Lebanon
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="container-fluid">
+          <!-- navbar visible on smaller screens -->
+          <nav class="navbar d-lg-none" role="navigation">
+            <div class="container-fluid">
+              <a class="navbar-brand mx-auto logo" href="index.html">
+                <img src="assets/logo/logo.png" alt="BookVerse" />
+              </a>
+              <i
+                class="bi bi-list"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasDarkNavbar"
+                aria-controls="offcanvasDarkNavbar"
+                aria-label="Toggle navigation"
+              ></i>
+              <div
+                class="offcanvas offcanvas-end"
+                tabindex="-1"
+                id="offcanvasDarkNavbar"
+              >
+                <div class="offcanvas-header">
+                  <i
+                    class="bi-x-lg"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                  ></i>
+                </div>
+                <div class="offcanvas-body">
+                  <ul class="navbar-nav flex-column gap-4">
+                    <li><a class="nav-item" href="index.html">Homepage</a></li>
+                    <li>
+                      <a class="nav-item nav-link" href="shop.html">Shop</a>
+                    </li>
+                    <li>
+                      <a class="nav-item nav-link" href="topPicks.html"
+                        >Top Picks</a
+                      >
+                    </li>
+                    <li>
+                      <a class="nav-item nav-link" href="b2b.html">B2B</a>
+                    </li>
+                    <li>
+                      <a class="nav-item nav-link" href="about.html"
+                        >Our Story</a
+                      >
+                    </li>
+                    <li>
+                      <a class="nav-item nav-link" href="support.html"
+                        >Support</a
+                      >
+                    </li>
+                    <li>
+                      <a class="nav-item nav-link" href="contact.html"
+                        >Contact Us</a
+                      >
+                    </li>
+                    <li>
+                      <a class="nav-item nav-link" href="cart.html">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="button-1 w-100 text-center" href="login.html"
+                        >Login</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </nav>
+
+          <!-- navbar visible on medium and larger screens -->
+          <nav
+            class="navbar navbar-expand-lg d-none d-lg-flex"
+            role="navigation"
+          >
+            <div class="container-fluid">
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li><a class="nav-link" href="index.html">HomePage</a></li>
+                  <li><a class="nav-link" href="shop.html">Shop</a></li>
+                  <li>
+                    <a class="nav-link" href="topPicks.html">Top Picks</a>
+                  </li>
+                  <li><a class="nav-link" href="b2b.html">B2B</a></li>
+                </ul>
+
+                <a class="navbar-brand mx-auto px-5 logo" href="index.html">
+                  <img src="assets/logo/logo.png" alt="BookVerse" />
+                </a>
+
+                <ul class="navbar-nav">
+                  <li><a class="nav-link" href="about.html">Our Story</a></li>
+                  <li><a class="nav-link" href="support.html">Support</a></li>
+                  <li>
+                    <a class="nav-link" href="contact.html">Contact Us</a>
+                  </li>
+                  <li>
+                    <a class="nav-link" href="cart.html">
+                      <img
+                        src="assets/svg/cart.svg"
+                        class="w-100 mb-1 mr-1"
+                        alt="Cart"
+                      />
+                    </a>
+                  </li>
+                  <li><a class="button-1" href="login.html">Login</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Carousel -->
+      <div class="container">
+        <div class="new-in-store py-5">
+          <div
+            id="newInStoreCarousel"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-inner carrousel1">
+              <div class="carousel-item active">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="p-5"
+                    style="flex: 1; background-color: var(--white)"
+                  >
+                    <h1 class="py-3">The Anatomy of Dependence</h1>
+                    <h6 class="pb-3">
+                      Dive into a groundbreaking exploration of relationships
+                      and human connections. This is the must-read book that
+                      redefines how we see dependency.
+                    </h6>
+                    <a href="item7.html" class="button-1">Discover More</a>
+                  </div>
+                  <div style="flex: 1">
+                    <a href="item7.html">
+                      <img
+                        src="assets/images/books/book7.jpeg"
+                        class="d-block w-100"
+                        alt="the anatomy of dependence"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="p-5"
+                    style="flex: 1; background-color: var(--white)"
+                  >
+                    <h1 class="py-3">The Silent Patient</h1>
+                    <h6 class="pb-3">
+                      A psychological thriller that will leave you speechless.
+                      Uncover the secrets behind one woman's silence in this
+                      unputdownable masterpiece.
+                    </h6>
+                    <a href="item8.html" class="button-1">Read More</a>
+                  </div>
+                  <div style="flex: 1">
+                    <a href="item8.html">
+                      <img
+                        src="assets/images/books/book8.jpeg"
+                        class="d-block w-100"
+                        alt="the silent patient"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#newInStoreCarousel"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#newInStoreCarousel"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Our Story -->
+      <div class="our-story-container">
+        <div class="container flex">
+          <img src="assets/images/pictures/ourstorypic.jpg" alt="Our Story" />
+          <div class="our-story-text mt-5 mb-5">
+            <h1>Lebanon's Bookstore Revolution</h1>
+            <br />
+            <h6>
+              At BookVerse, we're not just selling books; we're creating
+              experiences. From Beirut's bustling streets to Lebanon's
+              book-loving hearts, we've made it our mission to bring stories to
+              life and build a community that celebrates literature in every
+              form.
+            </h6>
+            <a href="about.html">Learn more about our story</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Must-Read Books -->
+      <div class="items-not-to-miss-container">
+        <div class="container">
+          <h1>Must-Read Books</h1>
+          <div
+            id="carouselExample"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel2-index carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex gap-3">
+                  <a href="item.html" class="carousel-item-img">
+                    <img
+                      src="assets/images/books/book.jpeg"
+                      alt="101 essays that will change the way you think"
+                    />
+                  </a>
+                  <a href="item1.html" class="carousel-item-img">
+                    <img
+                      src="assets/images/books/book1.jpeg"
+                      alt="metamorphosis"
+                    />
+                  </a>
+                  <a href="item2.html" class="carousel-item-img">
+                    <img
+                      src="assets/images/books/book2.jpeg"
+                      alt="the secret history"
+                    />
+                  </a>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="d-flex gap-3">
+                  <a href="item3.html" class="carousel-item-img">
+                    <img
+                      src="assets/images/books/book3.jpeg"
+                      alt="robbin williams"
+                    />
+                  </a>
+                  <a href="item4.html" class="carousel-item-img">
+                    <img src="assets/images/books/book4.jpeg" alt="1984" />
+                  </a>
+                  <a href="item5.html" class="carousel-item-img">
+                    <img
+                      src="assets/images/books/book5.jpeg"
+                      alt="the republic"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExample"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExample"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Client Photos - Redesigned -->
+      <div class="client-photos">
+        <div class="container">
+          <h1>Loved by Readers Across Lebanon</h1>
+          <p class="subtitle">See how our community brings stories to life</p>
+
+          <div class="photo-grid">
+            <div class="photo-card">
+              <img
+                src="assets/images/pictures/realpicturespic1.jpg"
+                alt="gift wrapping to a customer picture"
+              />
+              <div class="photo-overlay">
+                <div class="location-tag">
+                  <span>📍</span>
+                  <span>Zahle</span>
+                </div>
+                <p class="customer-note">"Perfect gift wrapping"</p>
+              </div>
+            </div>
+
+            <div class="photo-card">
+              <img
+                src="assets/images/pictures/realpicturespic2.jpg"
+                alt="clock books"
+              />
+              <div class="photo-overlay">
+                <div class="location-tag">
+                  <span>📍</span>
+                  <span>Jounieh</span>
+                </div>
+                <p class="customer-note">"My new reading corner"</p>
+              </div>
+            </div>
+
+            <div class="photo-card">
+              <img
+                src="assets/images/pictures/realpicturespic3.jpg"
+                alt="coffee shop blind book idea"
+              />
+              <div class="photo-overlay">
+                <div class="location-tag">
+                  <span>📍</span>
+                  <span>Byblos</span>
+                </div>
+                <p class="customer-note">"Loved the blind book pick"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="newsletter container mt-5">
+        <h1 class="mb-5">Stay in the Loop</h1>
+        <h6 class="mb-4">
+          New releases, exclusive deals, and reading recommendations delivered
+          monthly.
+        </h6>
+        <form id="newsletter-form">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            class="form-control w-50"
+            required
+          /><br /><br />
+          <button type="submit" class="mt-3 button-1">Submit</button>
+        </form>
+      </div>
+
+      <!-- Newsletter Modal -->
+      <div
+        class="modal fade"
+        id="newsletterModal"
+        tabindex="-1"
+        aria-labelledby="newsletterModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="newsletterModalLabel">Thank You!</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
