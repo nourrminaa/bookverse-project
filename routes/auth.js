@@ -38,6 +38,13 @@ router.post("/login", (req, res, next) => {
         });
       }
 
+      if (user.status !== "Active") {
+        return res.status(403).render("login-page/login", {
+          pageTitle: "login page",
+          errorMessage: "Your account is inactive. Please contact support.",
+        });
+      }
+
       // compare bcrypt hash
       const isValid = bcrypt.compareSync(password, user.password_hash);
 
