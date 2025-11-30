@@ -49,11 +49,14 @@
             </div>
 
             <button type="submit" class="btn-1 btn-login">Sign In</button>
+            <% if (errorMessage) { %>
+            <div class="error-box"><%= errorMessage %></div>
+            <% } %>
           </form>
 
           <p class="signup-text">
             Don't have an account?
-            <a href="/register" class="signup-link">Create one</a>
+            <a href="/auth/register" class="signup-link">Create one</a>
           </p>
         </div>
       </div>

@@ -92,6 +92,9 @@
             </div>
 
             <button type="submit" class="btn-1 btn-login">Register</button>
+            <% if (errorMessage) { %>
+            <div class="error-box"><%= errorMessage %></div>
+            <% } %>
           </form>
 
           <p class="signup-text">
