@@ -175,7 +175,7 @@ input::placeholder {
 
 .signup-text {
   text-align: center;
-  margin-top: 32px;
+  margin-top: 16px;
   color: var(--darkGray);
 }
 
@@ -341,6 +341,17 @@ input::placeholder {
   height: 100%;
   right: 25%;
   animation: slideUp 18s linear infinite;
+}
+
+.error-box {
+  margin-top: 2%;
+  background: #ffefef;
+  color: #b00020;
+  padding: 12px 16px;
+  border-left: 4px solid #b00020;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-family: "Work Sans", sans-serif;
 }
 
 @keyframes slideDown {
