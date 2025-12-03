@@ -1,6 +1,6 @@
 import express from "express";
 import db from "../utils/database.js";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 
@@ -60,8 +60,14 @@ router.post("/login", (req, res, next) => {
       req.session.isLoggedIn = true;
       req.session.currentUser = user.email;
       req.session.userName = user.name;
+      req.session.role = user.role;
 
-      res.redirect("/");
+      // redirect based on role
+      if (user.role === "Admin") {
+        return res.redirect("/admin/dashboard");
+      } else {
+        return res.redirect("/");
+      }
     })
     .catch(() => {
       res.status(500).render("login-page/login", {
@@ -117,7 +123,7 @@ router.post("/register", (req, res, next) => {
       const hashedPassword = bcrypt.hashSync(password, 10);
 
       return db.execute(
-        "INSERT INTO users (name, email, password_hash, role, status, created_at) VALUES (?, ?, ?, 'Customer', 'Active', NOW())",
+        "INSERT INTO users (name, email, password_hash, role, status, joined, orders) VALUES (?, ?, ?, 'Customer', 'Active', CURDATE(), 0)",
         [name, email, hashedPassword]
       );
     })
