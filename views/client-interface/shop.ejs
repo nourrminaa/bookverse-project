@@ -33,19 +33,27 @@
         <%- include('includes/filters-nav') %>
 
         <section class="items container py-5">
+          <% if (searchQuery || category || author || price) {
+          %>
+          <div style="margin-bottom: 20px">
+            <a href="/shop" style="color: var(--lightBrown)"
+              >Clear all filters</a
+            >
+          </div>
+          <% } %> <% if (books.length === 0) { %>
+          <p>No books found.</p>
+          <% } else { %>
           <section class="grid">
             <% books.forEach(book => { %>
             <div class="item">
               <a href="/item/<%= book.id %>">
-                <img
-                  src="/assets/images/books/<%= book.img %>"
-                  alt="<%= book.alt %>"
-                />
+                <img src="<%= book.img %>" alt="<%= book.alt %>" />
                 <button class="button-1 w-50 mt-2">View Item</button>
               </a>
             </div>
             <% }); %>
           </section>
+          <% } %>
         </section>
       </div>
     </main>

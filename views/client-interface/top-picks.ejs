@@ -30,12 +30,21 @@
         <%- include('includes/filters-nav') %>
 
         <section class="items container py-5">
+          <% if (searchQuery || category || author || price) { %>
+          <div style="margin-bottom: 20px;">
+            <a href="/top-picks" style="color: var(--lightBrown);">Clear all filters</a>
+          </div>
+          <% } %>
+
+          <% if (topPicks.length === 0) { %>
+          <p>No books found.</p>
+          <% } else { %>
           <section class="grid">
             <% topPicks.forEach(book => { %>
             <div class="item">
               <a href="/item/<%= book.id %>">
                 <img
-                  src="/assets/images/books/<%= book.img %>"
+                  src="<%= book.img %>"
                   alt="<%= book.alt %>"
                 />
                 <button class="button-1 w-50 mt-2">View Item</button>
@@ -43,6 +52,7 @@
             </div>
             <% }) %>
           </section>
+          <% } %>
         </section>
       </div>
     </main>

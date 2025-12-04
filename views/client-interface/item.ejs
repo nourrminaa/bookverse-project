@@ -42,18 +42,25 @@
             <section class="second-container pt-5 pb-5">
               <div class="item-price pl-3 pr-3">
                 <h1><%= item.title %></h1>
+                <p style="color: gray;"><%= item.author %></p>
 
                 <h6>
-                  <del><%= item.oldPrice %>$</del>
-                  <span class="ml-3" style="color: red">
-                    <%= item.newPrice %>$
-                  </span>
+                  <% if (item.oldPrice && item.oldPrice > item.price) { %>
+                  <del style="color: gray;"><%= item.oldPrice %>$</del>
+                  <span style="color: red; margin-left: 10px;"><%= item.price %>$</span>
+                  <% } else { %>
+                  <span style="color: black;"><%= item.price %>$</span>
+                  <% } %>
                 </h6>
               </div>
 
-              <button class="mt-3 button-2 add-to-cart-button">
-                ADD TO CART
-              </button>
+              <form action="/cart/add" method="POST">
+                <input type="hidden" name="bookId" value="<%= item.id %>" />
+                <input type="hidden" name="quantity" value="1" />
+                <button type="submit" class="mt-3 button-2 add-to-cart-button">
+                  ADD TO CART
+                </button>
+              </form>
             </section>
           </div>
         </section>
