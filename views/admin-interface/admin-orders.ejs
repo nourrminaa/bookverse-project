@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/assets/logo/logo_favicon.png" />
+    <title>ORDER MANAGEMENT</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/admin-main.css" />
+    <link rel="stylesheet" href="/styles/admin-orders.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <%- include('includes/aside-bar') %>
+    <main class="main-content">
+      <header class="header">
+        <h2 class="header-title">Order Management</h2>
+      </header>
+
+      <!-- search & filter -->
+      <div class="controls">
+        <form method="GET" action="/admin/orders" style="display: flex; gap: 10px; align-items: center; width: 100%;">
+          <input 
+            type="text" 
+            name="search" 
+            class="search-box"
+            placeholder="Search by customer or order ID..."
+            value="<%= searchQuery %>"
+            style="flex: 1;"
+          />
+
+          <button type="submit" class="btn-1">Search</button>
+
+          <!-- when selected, the form auto-submits to filter by status -->
+          <select name="status" class="filter-select" onchange="this.form.submit()">
+            <option value="">All Orders</option>
+            <option value="Pending"   <%= statusFilter === "Pending" ? "selected" : "" %>>Pending</option>
+            <option value="Processing" <%= statusFilter === "Processing" ? "selected" : "" %>>Processing</option>
+            <option value="Delivered"  <%= statusFilter === "Delivered" ? "selected" : "" %>>Delivered</option>
+          </select>
+        </form>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Book</th>
+              <th>Date</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% orders.forEach(order => { %>
+            <tr>
+              <td>#<%= order.id %></td>
+              <td><%= order.customer_name %></td>
+
+              <td>View details</td>
+
+              <!-- create date in js with prefered format -->
+              <td><%= new Date(order.created_at).toLocaleDateString() %></td>
+
+              <td>$<%= order.total %></td>
+
+              <td>
+                <span class="badge <%= order.status.toLowerCase() %>">
+                  <%= order.status %>
+                </span>
+              </td>
+
+              <td>
+                <button class="btn-small" onclick="viewOrder(<%= order.id %>)">View</button>
+                <button class="btn-small" onclick="editOrder(<%= order.id %>, '<%= order.status %>')">Edit</button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- edit status modal -->
+    <div id="orderModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Edit Order Status</h3>
+          <button class="close-modal" onclick="closeOrderModal()">×</button>
+        </div>
+
+        <form action="/admin/orders/update-status" method="POST">
+          <div class="modal-body">
+            <input type="hidden" name="id" id="editOrderId" />
+
+            <div class="modal-group">
+              <label>Status</label>
+              <select name="status" id="modalStatus" class="modal-input">
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-2 btn-cancel" onclick="closeOrderModal()">Cancel</button>
+            <button type="submit" class="btn-1">Update Status</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="viewOrderModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Order Details</h3>
+          <button class="close-modal" onclick="closeViewOrderModal()">×</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="modal-group">
+            <label>Order ID</label>
+            <input type="text" id="viewOrderId" class="modal-input" disabled />
+          </div>
+
+          <div class="modal-group">
+            <label>Customer</label>
+            <input type="text" id="viewCustomer" class="modal-input" disabled />
+          </div>
+
+          <div class="modal-group">
+            <label>Date</label>
+            <input type="text" id="viewDate" class="modal-input" disabled />
+          </div>
+
+          <div class="modal-group">
+            <label>Status</label>
+            <input type="text" id="viewStatus" class="modal-input" disabled />
+          </div>
+
+          <h4 style="margin-top: 20px">Items</h4>
+          <div id="viewOrderItems"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-1" onclick="closeViewOrderModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/scripts/admin-orders.js"></script>
+  </body>
+</html>
