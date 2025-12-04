@@ -1,8 +1,8 @@
 import express from "express";
 import session from "express-session";
 import MySQLConnect from "express-mysql-session";
+// imported like this becuase not a default export
 import { dbConfig } from "./utils/credentials.js";
-import db from "./utils/database.js";
 import authRoutes from "./routes/auth.js";
 import adminRoutes from "./routes/admin.js";
 import clientRoutes from "./routes/client.js";
@@ -52,11 +52,6 @@ app.set("views", "views");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// this makes the whole app have access to the database connection
-// and in each req we have access to app through req.app
-// so we can do req.app.locals.db to get the connection object
-app.locals.db = db;
 
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
