@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/assets/logo/logo_favicon.png" />
+    <title>DASHBOARD</title>
+    <link rel="stylesheet" href="/styles/admin-dashboard.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/admin-main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('includes/aside-bar') %>
+    <!-- main content section -->
+    <main class="main-content">
+      <header class="header">
+        <h1 class="header-title">Dashboard</h1>
+      </header>
+
+      <!-- statistis section -->
+      <div class="stats-grid">
+        <!-- href for redirecting to books management page -->
+        <a href="/admin/books" class="stat-card" style="text-decoration: none; color: inherit;">
+          <div class="stat-title">Total Books</div>
+          <div class="stat-value"><%= stats.totalBooks %></div>
+          <div class="stat-change">In catalog</div>
+        </a>
+        <a href="/admin/orders" class="stat-card brick" style="text-decoration: none; color: inherit;">
+          <div class="stat-title">Total Orders</div>
+          <div class="stat-value"><%= stats.totalOrders %></div>
+          <div class="stat-change">All time</div>
+        </a>
+        <a href="/admin/users" class="stat-card green" style="text-decoration: none; color: inherit;">
+          <div class="stat-title">Total Users</div>
+          <div class="stat-value"><%= stats.totalUsers %></div>
+          <div class="stat-change">Registered users</div>
+        </a>
+        <a href="/admin/orders?status=Pending" class="stat-card pink" style="text-decoration: none; color: inherit;">
+          <div class="stat-title">Pending Orders</div>
+          <div class="stat-value"><%= stats.pendingOrders %></div>
+          <div class="stat-change">Awaiting processing</div>
+        </a>
+      </div>
+
+      <!-- quick actions section -->
+      <section class="section">
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="quick-actions">
+          <a href="/admin/books" class="btn-1 btn-1-inverted">Add New Book</a>
+          <a href="/admin/settings#flash-sale" class="btn-1 btn-1-inverted">Flash Sale</a>
+          <a href="/admin/users" class="btn-1 btn-1-inverted">Manage Users</a>
+          <a href="/admin/orders" class="btn-1 btn-1-inverted">View Orders</a>
+        </div>
+      </section>
+
+      <!-- chart section-->
+      <section class="section">
+        <div class="chart-container">
+          <div class="chart-header">
+            <h2 class="section-title">Top 5 Book Sales</h2>
+          </div>
+          <!-- canvas for bar chart displaying top 5 book sales -->
+          <canvas id="bar-chart"></canvas>
+        </div>
+      </section>
+      <!-- preparing the names & quantities sold for chart -->
+      <%
+          var chartLabels = [];
+          var chartData = [];
+
+          if (topBooks.length > 0) {
+            for (var i = 0; i < topBooks.length; i++) {
+              chartLabels.push(topBooks[i].title);
+              chartData.push(Number(topBooks[i].total_sold));
+            }
+          } else {
+            chartLabels = ["No sales yet"];
+            chartData = [0];
+          }
+      %>
+
+      <!-- recent  activity -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Recent Activity - Mockup: No Real Data</h2>
+        </div>
+        <ul class="activity-list">
+          <li class="activity-item">
+            <div class="activity-info">
+              <div class="activity-title">New order placed</div>
+              <div class="activity-details">Order #1247 by John Smith</div>
+            </div>
+            <div class="activity-time">2 min ago</div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-info">
+              <div class="activity-title">Book added to inventory</div>
+              <div class="activity-details">
+                "1984" by George Orwell - 50 copies
+              </div>
+            </div>
+            <div class="activity-time">1 hour ago</div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-info">
+              <div class="activity-title">User registered</div>
+              <div class="activity-details">Sarah Johnson joined BookVerse</div>
+            </div>
+            <div class="activity-time">3 hours ago</div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-info">
+              <div class="activity-title">Order shipped</div>
+              <div class="activity-details">Order #1238</div>
+            </div>
+            <div class="activity-time">5 hours ago</div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-info">
+              <div class="activity-title">Review posted</div>
+              <div class="activity-details">
+                "To Kill a Mockingbird" - 5 stars by Mike Davis
+              </div>
+            </div>
+            <div class="activity-time">Yesterday</div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // pass data to chart.js (they will be directly accessible in chart.js)
+      var chartLabels = <%- JSON.stringify(chartLabels) %>; 
+      var chartData = <%- JSON.stringify(chartData) %>;
+    </script>
+    <script src="/scripts/chart.js"></script>
+  </body>
+</html>
