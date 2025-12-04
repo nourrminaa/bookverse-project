@@ -12,18 +12,17 @@ function bodyFont() {
 }
 
 new Chart(document.getElementById("bar-chart"), {
-  type: "bar", // chart type for chart.js
+  type: "bar",
   data: {
-    // this is the section where data is defined
-    labels: ["Book 1", "Book 2", "Book 3", "Book 4", "Book 5"], // these labels will be dynamically gotten from the database sorted based on sales
+    labels: chartLabels,
     datasets: [
       {
         label: "Book Sales (units)",
         backgroundColor: color("--black"),
         borderColor: color("--black"),
         borderWidth: 0,
-        categoryPercentage: 0.3, // width of each bar
-        data: [1000, 500, 100, 55, 43], // this data will be dynamically gotten from the database sorted in descending order
+        categoryPercentage: 0.3,
+        data: chartData,
       },
     ],
   },
@@ -34,9 +33,8 @@ new Chart(document.getElementById("bar-chart"), {
     plugins: {
       legend: { display: false }, // no legend
       title: {
-        // we have a title
         display: true,
-        text: "Book Sales (Highest → Lowest)",
+        text: "Units Sold (Highest → Lowest)",
         color: color("--black"),
         font: {
           size: 15,
