@@ -2,26 +2,12 @@
 <html lang="en">
   <head>
     <title>BookVerse – Cart</title>
-
-    <link rel="icon" type="image/x-icon" href="/assets/logo/logo_favicon.png" />
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/assets/logo/logo_favicon.png" />
 
-    <meta
-      name="description"
-      content="Your BookVerse shopping cart – review your books and checkout securely."
-    />
-
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/styles/client-styles.css" />
   </head>
 
@@ -31,166 +17,134 @@
     <main>
       <section class="cart-container container flex-c gap-5">
         <section class="cart-main-section">
-          <div class="cart-main-section1">
-            <h1 class="pb-5">Your Cart</h1>
+          <h1 class="pb-5">Your Cart</h1>
 
-            <% cartItems.forEach((item, index) => { %>
-            <div class="item pb-5 flex">
-              <div class="flex-row gap-4">
-                <a href="/<%= item.href %>">
-                  <img
-                    src="/assets/images/books/<%= item.img %>"
-                    alt="<%= item.title %>"
-                  />
-                </a>
+          <% if (errorMessage === "Your cart is empty.") { %>
 
-                <div>
-                  <h6><%= item.title %></h6>
-
-                  <div class="quantity-selector">
-                    <div class="circle decrease" data-index="<%= index %>">
-                      -
-                    </div>
-                    <div class="number" id="qty-<%= index %>">
-                      <%= item.quantity %>
-                    </div>
-                    <div class="circle increase" data-index="<%= index %>">
-                      +
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="price-item">
-                <h6><%= item.price.toFixed(2) %>$</h6>
-              </div>
-            </div>
-            <% }) %>
-          </div>
-
-          <hr />
-          <div class="cart-main-section2">
-            <div class="flex-row mt-5 mb-5">
-              <h6 style="font-size: larger">
-                Your Total Including Shipping is
-              </h6>
-              <h6 style="font-size: larger">
-                <u>
-                  <%= cartItems.reduce((sum, item) => sum + item.price,
-                  0).toFixed(2) %>$
-                </u>
-              </h6>
+            <div style="text-align: center; padding: 40px 0;">
+              <p style="color: #666; font-size: 18px;"><%= errorMessage %></p>
+              <a href="/shop" class="button-1" style="margin-top: 20px; display: inline-block;">Browse Books</a>
             </div>
 
-            <h2 class="mb-3">Checkout</h2>
+          <% } else { %>
 
-            <div class="checkout-form form pb-5">
-              <form class="row g-3" id="cart-form">
-                <div class="col-md-6">
-                  <label for="phone">Phone number</label>
-                  <div class="input-group">
-                    <span class="input-group-text">+961</span>
-                    <input type="text" id="phone" required />
-                  </div>
-                </div>
+            <% if (errorMessage && errorMessage !== "Your cart is empty.") { %>
+              <div style="background: #f8d7da; color: #721c24; padding: 15px; margin-bottom: 20px; border-radius: 0;">
+                <p style="margin: 0; font-weight: 500;"><%= errorMessage %></p>
+              </div>
+            <% } %>
 
-                <div class="col-md-6">
-                  <label for="governorate">Governorate</label><br />
-                  <select id="governorate" style="padding: 8px 9px" required>
-                    <option value="BA">Beirut</option>
-                    <option value="JL">Mount Lebanon</option>
-                    <option value="AS">North Governorate</option>
-                    <option value="JA">South Governorate</option>
-                    <option value="NA">Nabatieh</option>
-                    <option value="BI">Beqaa</option>
-                    <option value="BH">Baalbek-Hermel</option>
-                    <option value="AK">Akkar</option>
-                  </select>
-                </div>
+            <% if (cartItems.length > 0) { %>
 
-                <div class="col-md-12 pt-4">
-                  <label>Precise Location</label>
-                  <textarea class="w-100" required></textarea>
-                </div>
+              <% cartItems.forEach((item, index) => { %>
 
-                <div class="col-12 pt-3">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="terms"
-                      required
-                    />
-                    <label class="form-check-label" for="terms">
-                      Agree to terms and conditions
-                    </label>
-                  </div>
-                </div>
+                <div class="item pb-4 flex" style="align-items: flex-start;">
+                  <div class="flex-row gap-4" style="align-items: flex-start;">
+                    <!-- to be able to click on image to go to item page -->
+                    <a href="/item/<%= item.id %>">
+                      <img src="<%= item.img %>" alt="<%= item.title %>" style="width: 180px; height: 250px; object-fit: cover;" />
+                    </a>
 
-                <div class="col-12">
-                  <button class="button-1 w-100" type="submit">Checkout</button>
-                </div>
-              </form>
-              <div
-                class="modal fade"
-                id="checkoutDone"
-                tabindex="-1"
-                aria-hidden="true"
-              >
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Thank you!</h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                      ></button>
+                    <div style="padding-top: 10px;">
+                      <h6 style="margin-bottom: 15px; font-weight: 600;"><%= item.title %></h6>
+
+                      <!-- quantity update form -->
+                      <form action="/cart/update" method="POST" id="form-<%= index %>">
+                        <input type="hidden" name="bookId" value="<%= item.id %>" />
+                        <input type="hidden" id="qty-input-<%= index %>" name="quantity" value="<%= item.quantity %>" />
+
+                        <div class="quantity-selector">
+                          <div class="circle decrease" data-index="<%= index %>">-</div>
+                          <div class="number" id="qty-<%= index %>"><%= item.quantity %></div>
+                          <div class="circle increase" data-index="<%= index %>">+</div>
+                        </div>
+                      </form>
                     </div>
-                    <div class="modal-body">
-                      Your order is confirmed. We will process it shortly.
-                    </div>
+                  </div>
 
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="button-1"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
+                  <!-- price and remove in each item -->
+                  <div class="price-item" style="display: flex; align-items: center; gap: 15px;">
+                    <h6 style="font-weight: 700; margin: 0;"><%= item.price %>$</h6>
+
+                    <form action="/cart/remove" method="POST">
+                      <input type="hidden" name="bookId" value="<%= item.id %>" /> 
+                      <button type="submit" style="background: none; border: none;">
+                        <i class="bi bi-x" style="font-size: 28px; color: var(--darkGray);"></i>
                       </button>
-                    </div>
+                    </form>
                   </div>
                 </div>
+              <% }); %>
+            <% } %>
+          <% } %>
+          <% if (cartItems.length > 0) { %>
+            <hr />
+            <div class="cart-main-section2">
+              <div class="flex-row mt-5 mb-5">
+                <h6 style="font-size: larger;">Your Total Including Shipping is</h6>
+                <h6 style="font-size: larger;">
+                  <!-- loop through cartItems to calculate total -->
+                  <% let total = 0; for (let i = 0; i < cartItems.length; i++) { total += cartItems[i].price * cartItems[i].quantity;} %>
+                  <u><%= total %>$</u> 
+                </h6>
+              </div>
+
+              <h2 class="mb-3">Checkout</h2>
+
+              <div class="checkout-form form pb-5">
+                <form class="row g-3" action="/checkout" method="POST">
+                  <div class="col-md-6">
+                    <label for="phone">Phone number</label>
+                    <div class="input-group">
+                      <span class="input-group-text">+961</span>
+                      <input type="text" id="phone" name="phone" required />
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 pt-4">
+                    <label for="location">Please specify your location precisely</label>
+                    <textarea class="w-100" id="location" name="location" required></textarea>
+                  </div>
+
+                  <div class="col-12">
+                    <button class="button-1 w-100" type="submit">Checkout</button>
+                  </div>
+                </form>
               </div>
             </div>
-          </div>
+          <% } %>
         </section>
-
         <section class="cart-secondary">
           <div class="favorites">
-            <h2 class="pt-3 pr-4 pb-2">Your Favorites</h2>
+            <div class="fav">
 
-            <% favorites.forEach(fav => { %>
-            <div class="item2 pb-4">
-              <div class="flex-row gap-4">
-                <a href="/<%= fav.href %>">
-                  <img
-                    src="/assets/images/books/<%= fav.img %>"
-                    alt="<%= fav.title %>"
-                  />
-                </a>
+              <h2 class="pt-3 pr-4 pb-2">Books You May Like</h2>
 
-                <div>
-                  <h6><%= fav.title %></h6>
-                  <h6 style="font-weight: bolder">
-                    <%= fav.price.toFixed(2) %>$
-                  </h6>
-                  <button class="button-2">Add to Cart</button>
-                </div>
-              </div>
+              <% if (recommendations.length > 0) { %>
+                <% recommendations.forEach(book => { %>
+                  <div class="item2 pb-4">
+                    <div class="flex-row gap-3">
+                      <!-- to be able to click on image to go to item page -->
+                      <a href="/item/<%= book.id %>">
+                        <img src="<%= book.img %>" alt="<%= book.title %>" style="width: 120px; height: 160px; object-fit: cover;" />
+                      </a>
+                      <div>
+                        <h6 style="font-size: 14px; margin-bottom: 8px;"><%= book.title %></h6>
+                        <h6 style="font-weight: bolder; margin-bottom: 10px;"><%= book.price %>$</h6>
+
+                        <form action="/cart/add" method="POST">
+                          <input type="hidden" name="bookId" value="<%= book.id %>" />
+                          <input type="hidden" name="quantity" value="1" />
+                          <button type="submit" class="button-2" style="padding: 6px 18px; font-size: 12px;">Add to Cart</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                <% }); %>
+              <% } else { %>
+                <p>No recommendations available.</p>
+              <% } %>
             </div>
-            <% }) %>
           </div>
         </section>
       </section>
@@ -198,35 +152,75 @@
 
     <%- include('includes/footer') %>
 
-    <!-- QUANTITY SCRIPT -->
-    <script>
-      document.querySelectorAll(".increase").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const index = btn.dataset.index;
-          const qtyEl = document.getElementById(`qty-${index}`);
-          qtyEl.textContent = Number(qtyEl.textContent) + 1;
-        });
-      });
+    <!-- checkout success modal -->
+    <div id="checkoutSuccessModal" class="modal"
+      style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);">
+      
+      <div style="background: white; margin: 15% auto; padding: 30px; border-radius: 8px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        
+        <div style="margin-bottom: 20px;">
+          <i class="bi bi-check-circle" style="font-size: 64px; color: #28a745;"></i>
+        </div>
 
-      document.querySelectorAll(".decrease").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const index = btn.dataset.index;
-          const qtyEl = document.getElementById(`qty-${index}`);
-          const current = Number(qtyEl.textContent);
-          if (current > 1) qtyEl.textContent = current - 1;
-        });
-      });
+        <h2 style="margin-bottom: 15px; color: var(--black);">Order Placed Successfully!</h2>
+        <p style="color: var(--darkGray); margin-bottom: 25px;">Your order has been received and will be processed shortly.</p>
 
-      // Checkout modal trigger
-      document.getElementById("cart-form").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const modal = new bootstrap.Modal(
-          document.getElementById("checkoutDone")
-        );
-        modal.show();
-      });
-    </script>
+        <button onclick="closeCheckoutModal()" class="button-1" style="padding: 12px 30px;">OK</button>
+      </div>
+    </div>
 
+    <!-- scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      document.querySelectorAll(".increase").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const index = btn.dataset.index;
+          const qtyDisplay = document.getElementById("qty-" + index);
+          const qtyInput = document.getElementById("qty-input-" + index);
+          const newQty = Number(qtyDisplay.textContent) + 1;
+
+          qtyDisplay.textContent = newQty;
+          qtyInput.value = newQty;
+
+          document.getElementById("form-" + index).submit();
+        });
+      });
+
+      document.querySelectorAll(".decrease").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const index = btn.dataset.index;
+          const qtyDisplay = document.getElementById("qty-" + index);
+          const qtyInput = document.getElementById("qty-input-" + index);
+          const current = Number(qtyDisplay.textContent);
+
+          if (current > 1) {
+            const newQty = current - 1;
+            qtyDisplay.textContent = newQty;
+            qtyInput.value = newQty;
+
+            document.getElementById("form-" + index).submit();
+          }
+        });
+      });
+
+      // Show modal if success=1
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("success") === "1") {
+        document.getElementById("checkoutSuccessModal").style.display = "block";
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+
+      function closeCheckoutModal() {
+        document.getElementById("checkoutSuccessModal").style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        const modal = document.getElementById("checkoutSuccessModal");
+        if (event.target === modal) {
+          closeCheckoutModal();
+        }
+      };
+    </script>
   </body>
 </html>
