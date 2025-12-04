@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/assets/logo/logo_favicon.png" />
+    <title>BOOKS MANAGEMENT</title>
+    <link rel="stylesheet" href="/styles/admin-books.css" />
+    <link rel="stylesheet" href="/styles/admin-main.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('includes/aside-bar') %>
+    <!-- main -->
+    <main class="main-content">
+      <header class="header">
+        <h2 class="header-title">Books Management</h2>
+        <button class="btn-1" onclick="openModal()">+ Add New Book</button>
+      </header>
+
+      <div class="controls">
+        <!-- search form -->
+        <form method="GET" action="/admin/books" style="display: flex; gap: 10px; flex: 1;">
+          <div class="search-box" style="flex: 1;">
+            <input
+              type="text"
+              class="search-input"
+              name="search"
+              placeholder="Search books by title or author..."
+              value="<%= searchQuery %>"
+            />
+          </div>
+          <button type="submit" class="btn-1">Search</button>
+        </form>
+      </div>
+
+      <% if (errorMessage) { %>
+      <div style="color: red; text-align: center; margin-bottom: 20px;"><%= errorMessage %></div>
+      <% } %>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Cover</th>
+              <th>Book Details</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          <%
+          for (let i = 0; i < books.length; i++) {
+            const book = books[i];
+
+            const category = book.category || "General";
+            const categoryClass = category.toLowerCase();
+            const safeDescription = book.description;
+
+            let stockClass = "low";
+            if (book.stock > 50) stockClass = "high";
+            else if (book.stock > 20) stockClass = "medium";
+          %>
+
+          <tr>
+            <td>
+              <% if (book.img) { %>
+                <img src="<%= book.img %>" 
+                    alt="<%= book.alt %>" 
+                    style="width: 50px; height: 70px; object-fit: cover;" />
+              <% } else { %>
+                <div class="book-image-placeholder"></div>
+              <% } %>
+            </td>
+            <td>
+              <div class="book-title"><%= book.title %></div>
+              <div class="book-author">by <%= book.author %></div>
+            </td>
+            <td>
+              <span class="type-badge type-<%= categoryClass %>">
+                <%= category %>
+              </span>
+            </td>
+            <td>
+              <span class="price">$<%= book.price %></span>
+            </td>
+            <td>
+              <!-- stock color changes are here based on the stockClass -->
+              <span class="stock <%= stockClass %>">
+                <%= book.stock %>
+              </span>
+            </td>
+            <td>
+              <div class="actions">
+                <button 
+                  class="btn-icon"
+                  onclick="openEditModal(
+                    <%= book.id %>,
+                    '<%= book.title %>',
+                    '<%= book.author %>',
+                    <%= book.price %>,
+                    <%= book.old_price || 0 %>,
+                    '<%= book.img %>',
+                    '<%= safeDescription %>',
+                    <%= book.stock %>,
+                    '<%= category %>'
+                  )">
+                  ✎
+                </button>
+
+                <form action="/admin/books/delete" method="POST" style="display: inline;">
+                  <input type="hidden" name="id" value="<%= book.id %>" />
+                  <button 
+                    type="submit" 
+                    class="btn-icon delete" 
+                    ✕
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+
+          <% } %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <div id="bookModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Add New Book</h3>
+          <button class="close-modal" onclick="closeModal()">×</button>
+        </div>
+        <form action="/admin/books/add" method="POST">
+          <div class="form-group">
+            <label class="form-label">Book Title</label>
+            <input
+              type="text"
+              class="form-input"
+              name="title"
+              placeholder="Enter book title"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Author</label>
+            <input
+              type="text"
+              class="form-input"
+              name="author"
+              placeholder="Enter author name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select class="form-select" name="category">
+              <option value="Fiction">Fiction</option>
+              <option value="Non-Fiction">Non-Fiction</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Romance">Romance</option>
+              <option value="Science Fiction">Science Fiction</option>
+              <option value="Biography">Biography</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price ($)</label>
+            <input
+              type="number"
+              class="form-input"
+              name="price"
+              placeholder="0.00"
+              step="0.01"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Old Price ($) - Leave empty or same as price for no sale</label>
+            <input
+              type="number"
+              class="form-input"
+              name="old_price"
+              placeholder="0.00"
+              step="0.01"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Stock Quantity</label>
+            <input type="number" class="form-input" name="stock" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea
+              class="form-textarea"
+              name="description"
+              placeholder="Enter book description"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cover Image Filename</label>
+            <input
+              type="text"
+              class="form-input"
+              name="img"
+              placeholder="book.jpeg"
+              required
+            />
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-2" onclick="closeModal()">
+              Cancel
+            </button>
+            <button type="submit" class="btn-1">Save Book</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Edit Book</h3>
+          <button class="close-modal" onclick="closeEditModal()">×</button>
+        </div>
+        <form action="/admin/books/update" method="POST">
+          <input type="hidden" name="id" id="editBookId" />
+          <div class="form-group">
+            <label class="form-label">Book Title</label>
+            <input
+              type="text"
+              class="form-input"
+              name="title"
+              id="editTitle"
+              placeholder="Enter book title"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Author</label>
+            <input
+              type="text"
+              class="form-input"
+              name="author"
+              id="editAuthor"
+              placeholder="Enter author name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select class="form-select" name="category" id="editCategory">
+              <option value="Fiction">Fiction</option>
+              <option value="Non-Fiction">Non-Fiction</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Romance">Romance</option>
+              <option value="Science Fiction">Science Fiction</option>
+              <option value="Biography">Biography</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price ($)</label>
+            <input
+              type="number"
+              class="form-input"
+              name="price"
+              id="editPrice"
+              placeholder="0.00"
+              step="0.01"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Old Price ($) - Leave empty or same as price for no sale</label>
+            <input
+              type="number"
+              class="form-input"
+              name="old_price"
+              id="editOldPrice"
+              placeholder="0.00"
+              step="0.01"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Stock Quantity</label>
+            <input type="number" class="form-input" name="stock" id="editStock" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea
+              class="form-textarea"
+              name="description"
+              id="editDescription"
+              placeholder="Enter book description"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cover Image Filename</label>
+            <input
+              type="text"
+              class="form-input"
+              name="img"
+              id="editImg"
+              placeholder="book.jpeg"
+            />
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-2" onclick="closeEditModal()">
+              Cancel
+            </button>
+            <button type="submit" class="btn-1">Update Book</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/scripts/admin-books.js"></script>
+  </body>
+</html>
