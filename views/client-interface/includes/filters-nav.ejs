@@ -1,20 +1,39 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <!-- desktop mode search animation -->
-    <form class="search-box me-4 d-none d-md-flex">
-      <input type="text" placeholder=" " />
+    <!-- search box form -->
+    <!-- each filter will update the URL query parameters(here in the search already included) -->
+    <!-- all these queries will be read in the /shop or /top-picks routes (req.query.category, req.query.author, req.query.price) -->
+    <form class="search-box me-4 d-none d-md-flex" method="GET" action="">
+      <input
+        type="text"
+        name="search"
+        placeholder=" "
+        value="<%= searchQuery %>"
+      />
       <i class="bi bi-search search-icon"></i>
-      <button type="reset"></button>
+      <button type="submit" style="display: none"></button>
     </form>
 
     <!-- mobile mode -->
-    <form class="search-box-mobile d-flex d-md-none gap-2">
-      <input type="text" class="form-control" placeholder="Search books..." />
+    <form
+      class="search-box-mobile d-flex d-md-none gap-2"
+      method="GET"
+      action=""
+    >
+      <input
+        type="text"
+        name="search"
+        class="form-control"
+        placeholder="Search books..."
+        value="<%= searchQuery %>"
+      />
       <button class="search-mobile-btn" type="submit">
         <i class="bi bi-search"></i>
       </button>
     </form>
 
+    <!-- filters toggle button and filters -->
     <i
       class="bi bi-list d-lg-none shop-filter-icon"
       type="button"
@@ -24,7 +43,6 @@
     ></i>
     <div class="collapse navbar-collapse" id="shopFilters">
       <ul class="navbar-nav gap-3">
-        <!-- Categories -->
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -35,13 +53,20 @@
             Categories
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Fiction</a></li>
-            <li><a class="dropdown-item" href="#">Non-Fiction</a></li>
-            <li><a class="dropdown-item" href="#">Children's Books</a></li>
+            <% if (categories.length > 0) {
+            %> <% categories.forEach(cat => { %>
+            <li>
+              <!-- category filter link -->
+              <a class="dropdown-item" href="?category=<%= cat %>"
+                ><%= cat %></a
+              >
+            </li>
+            <% }) %> <% } else { %>
+            <li><a class="dropdown-item" href="#">No categories</a></li>
+            <% } %>
           </ul>
         </li>
 
-        <!-- Authors -->
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -52,13 +77,20 @@
             Authors
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Albert Camus</a></li>
-            <li><a class="dropdown-item" href="#">Alex Michaelides</a></li>
-            <li><a class="dropdown-item" href="#">Fyodor Dostoevsky</a></li>
+            <% if (authors.length > 0) { %> <%
+            authors.forEach(auth => { %>
+            <li>
+              <!-- author filter link -->
+              <a class="dropdown-item" href="?author=<%= auth %>"
+                ><%= auth %></a
+              >
+            </li>
+            <% }) %> <% } else { %>
+            <li><a class="dropdown-item" href="#">No authors</a></li>
+            <% } %>
           </ul>
         </li>
 
-        <!-- Price Range -->
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -69,10 +101,17 @@
             Price Range
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">$0 - $5</a></li>
-            <li><a class="dropdown-item" href="#">$5 - $10</a></li>
-            <li><a class="dropdown-item" href="#">$10+</a></li>
+            <!-- price filter links -->
+            <li><a class="dropdown-item" href="?price=0-10">$0 - $10</a></li>
+            <li><a class="dropdown-item" href="?price=10-15">$10 - $15</a></li>
+            <li><a class="dropdown-item" href="?price=15+">$15+</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <!-- '?' query means that the URL will have no query parameters(undefined) which clears all filters -->
+          <a class="nav-link" href="?" style="color: var(--lightBrown)"
+            >Clear Filters</a
+          >
         </li>
       </ul>
     </div>
