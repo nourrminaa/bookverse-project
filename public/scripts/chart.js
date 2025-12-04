@@ -1,8 +1,6 @@
-// Cache expensive calls ONCE
 const rootStyles = getComputedStyle(document.documentElement);
 const bodyStyles = getComputedStyle(document.body);
 
-// Faster helper functions
 function color(name) {
   return rootStyles.getPropertyValue(name).trim();
 }
