@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/assets/logo/logo_favicon.png" />
+    <title>MESSAGES</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/admin-main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <%- include('includes/aside-bar') %>
+    <main class="main-content">
+      <header class="header">
+        <h2 class="header-title">Messages</h2>
+      </header>
+
+      <div class="section">
+        <% if (messages.length > 0) { %>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">
+          <% messages.forEach(message => { %>
+          <div style="background: var(--white); border: 1px solid var(--gray); border-radius: 0; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h4 style="margin: 0 0 5px 0; color: var(--black); font-size: 18px;"><%= message.name %></h4>
+            <p style="margin: 0 0 15px 0; color: var(--darkGray); font-size: 14px;"><%= message.email %></p>
+            <p style="color: var(--black); line-height: 1.6; margin: 0; white-space: pre-wrap;"><%= message.message %></p>
+          </div>
+          <% }) %>
+        </div>
+        <% } else { %>
+        <p style="color: var(--darkGray); text-align: center; padding: 40px 0;">No messages yet.</p>
+        <% } %>
+      </div>
+    </main>
+  </body>
+</html>
+
