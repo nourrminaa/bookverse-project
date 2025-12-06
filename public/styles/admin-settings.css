@@ -31,6 +31,30 @@
   border-color: var(--black);
 }
 
+.faq-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+.faq-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.flash-active-box {
+  background: #d4edda;
+  color: #155724;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.btn-2.danger {
+  background: var(--brick);
+  color: white;
+}
+
 textarea.settings-input {
   height: 90px;
   resize: vertical;

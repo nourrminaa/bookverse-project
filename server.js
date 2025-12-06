@@ -41,6 +41,7 @@ sessionStore
 // - this middleware makes isAuthenticated and errorMessage available in all EJS templates without 
 // passing them explicitly
 // - on every request, set res.locals.isAuthenticated based on req.session.isLoggedIn
+// - NOTE: i did not use it in all templates due to time constraints and sticking to what was done during the course
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn || false;
   res.locals.errorMessage = null;

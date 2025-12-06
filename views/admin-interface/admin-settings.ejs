@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/assets/logo/logo_favicon.png" />
+    <title>ADMIN SETTINGS</title>
+
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/admin-main.css" />
+    <link rel="stylesheet" href="/styles/admin-settings.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Work+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <%- include('includes/aside-bar') %>
+
+    <main class="main-content">
+      <header class="header">
+        <h2 class="header-title">Settings</h2>
+      </header>
+
+      <!-- faq section -->
+      <section class="section">
+        <h4 class="section-title">FAQ Management</h4>
+
+        <form method="POST" action="/admin/settings/save-faqs" class="settings-card" id="faqForm">
+          <div id="faqContainer">
+            <% if (settings.faqs.length > 0) { %>
+              <% settings.faqs.forEach(function (faq, i) { %>
+                <div class="faq-item">
+                  <div class="settings-group">
+                    <label>Question #<%= i + 1 %></label>
+                    <input
+                      type="text"
+                      class="settings-input"
+                      name="question[]"
+                      value="<%= faq.question %>"
+                      required
+                    />
+                  </div>
+
+                  <div class="settings-group">
+                    <label>Answer #<%= i + 1 %></label>
+                    <textarea
+                      class="settings-input"
+                      name="answer[]"
+                      required
+                    ><%= faq.answer %></textarea>
+                  </div>
+                </div>
+              <% }) %>
+            <% } else { %>
+              <!-- if no FAQs in DB, show one empty row -->
+              <div class="faq-item">
+                <div class="settings-group">
+                  <label>Question #1</label>
+                  <input
+                    type="text"
+                    class="settings-input"
+                    name="question[]"
+                    placeholder="Enter FAQ question"
+                    required
+                  />
+                </div>
+
+                <div class="settings-group">
+                  <label>Answer #1</label>
+                  <textarea
+                    class="settings-input"
+                    name="answer[]"
+                    placeholder="Enter FAQ answer"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+            <% } %>
+          </div>
+          <button type="button" class="btn-2" id="addFaqBtn">+ Add FAQ</button>
+          <button type="submit" class="btn-1">Save All FAQs</button>
+        </form>
+      </section>
+
+      <!-- store details section -->
+      <form method="POST" action="/admin/settings/save-store" class="settings-card">
+        <div class="settings-group">
+          <label>Phone Number</label>
+          <input 
+            type="text" 
+            class="settings-input"
+            name="phone"
+            value="<%= settings.store.phone %>"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn-1">Save Store Info</button>
+      </form>
+
+      <!-- flash sale section -->
+      <section class="section" id="flash-sale">
+        <h4 class="section-title">Flash Sale</h4>
+        <div class="settings-card">
+          <% if (flashSaleActive) { %>
+            <div class="flash-active-box">
+              <strong>Flash Sale is ACTIVE!</strong>
+              Discount: <%= flashSalePercent %>%
+            </div>
+            <form action="/admin/settings/flash-sale/end" method="POST">
+              <button type="submit" class="btn-2 danger">End Flash Sale</button>
+            </form>
+          <% } else { %>
+            <form action="/admin/settings/flash-sale/start" method="POST">
+              <div class="settings-group">
+                <label>Discount Percentage (%)</label>
+                <input type="number"
+                      class="settings-input"
+                      name="percentage"
+                      min="1" max="90"
+                      placeholder="e.g. 20"
+                      required />
+              </div>
+              <button type="submit" class="btn-1">Start Flash Sale</button>
+            </form>
+          <% } %>
+        </div>
+      </section>
+    </main>
+    <script src="/scripts/admin-settings.js"></script>
+  </body>
+</html>
